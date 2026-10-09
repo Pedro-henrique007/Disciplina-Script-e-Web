@@ -3,7 +3,7 @@ const nomeloja = "Game Station";
 
 const produtos =[ {
     nome:"Grand Theft Auto VI",
-    categoria:"Ação",
+    categoria:"Acao",
     preco:450,
     quantidade:100,
     vendidos:0
@@ -96,8 +96,17 @@ function produtosEmFalta(lista, minimo){
 }
 //Tarefa 7
 function aplicarDesconto(lista,categoria,percentual){
-    
+    let produtos_alterados=0;
+    for(let k=0;k<lista.length;k++){
+        if(lista[k].categoria.toLowerCase()===categoria.toLowerCase()){
+            lista[k].preco=lista[k].preco-(lista[k].preco*percentual/100);
+            produtos_alterados++;
+        }
+    }
+    return produtos_alterados;
 }
+
+//Tarefa 8
 
 
 
