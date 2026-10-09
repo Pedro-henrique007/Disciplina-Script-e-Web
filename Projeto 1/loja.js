@@ -1,5 +1,6 @@
+// ===== 1. DADOS =====
 // Tarefa 1
-const nomeloja = "Game Station";
+const nomeLoja = "Game Station";
 
 const produtos =[ {
     nome:"Grand Theft Auto VI",
@@ -45,18 +46,19 @@ const produtos =[ {
 }
 ];
 
+// ===== 2. FUNÇÕES =====
+
 // Tarefa 2
 function listarProdutos(lista){
     for (let i=0;i<lista.length;i++){
-        
-        console.log(`${1+[i]}: Nome: ${lista[i].nome} | Categoria: ${lista[i].categoria} | Preço: ${lista[i].preco} | Quantidade: ${lista[i].quantidade} | Vendidos: ${lista[i].vendidos}`)
-        console.log("\n")
+        console.log(`${i+1}. ${lista[i].nome} | ${lista[i].categoria} | R$ ${lista[i].preco} | ${lista[i].quantidade} un. | ${lista[i].vendidos} vendidos`)
     }
 }
+
 // Tarefa 3
 function cadastrarProduto(lista,nome,categoria,preco,quantidade){
     const novo ={
-        nome: nome,
+        nome: formatarNome(nome),
         categoria:categoria,
         preco: preco,
         quantidade: quantidade,
@@ -69,12 +71,12 @@ function cadastrarProduto(lista,nome,categoria,preco,quantidade){
 // Tarefa 4
 function calcularValorEstoque(lista){
     let soma=0;
-    for(let k=0;k<produtos.length;k++){
-        soma= soma+ (produtos.preco[k]*produto.quantidade[k])
+    for(let k=0;k<lista.length;k++){
+        soma= soma+ (lista[k].preco*lista[k].quantidade)
     }
     return soma;
-    console.log(`O valor da soma dos produtos é ${soma}`);
 }
+
 // Tarefa 5
 function buscarProduto(lista,termo){
     const busca= termo.toLowerCase();
@@ -85,6 +87,7 @@ function buscarProduto(lista,termo){
     }
     return null;
 }
+
 // Tarefa 6
 function produtosEmFalta(lista, minimo){
     const emFalta = [];
@@ -93,7 +96,9 @@ function produtosEmFalta(lista, minimo){
             emFalta.push(lista[k]);
         }
     }
+    return emFalta;
 }
+
 //Tarefa 7
 function aplicarDesconto(lista,categoria,percentual){
     let produtos_alterados=0;
@@ -123,4 +128,76 @@ function formatarNome(texto) {
   return limpo.charAt(0).toUpperCase() + limpo.slice(1).toLowerCase();
 }
 
+// Tarefa 10
+function converterParaJSON(lista) {
+  return JSON.stringify(lista);
+}
 
+function lerJSON(texto) {
+  return JSON.parse(texto);
+}
+
+// Tarefa 11
+function gerarRelatorio(nome, lista) {
+  const baixo = produtosEmFalta(lista, 5);
+  console.log(`===== RELATÓRIO: ${nome.toUpperCase()} =====`);
+  console.log(`Produtos cadastrados: ${lista.length}`);
+  console.log(`Valor total em estoque: R$ ${calcularValorEstoque(lista)}`);
+  console.log(`Produtos com estoque baixo: ${baixo.length}`);
+  for (let i = 0; i < baixo.length; i++) {
+    console.log(`- ${baixo[i].nome} (${baixo[i].quantidade} un.)`);
+  }
+}
+
+// ===== 3. PROGRAMA PRINCIPAL =====
+// Efetivação do programa completo
+
+console.log("--- Tarefa 2: listar ---");
+listarProdutos(produtos);
+
+console.log("--- Tarefa 3: cadastrar ---");
+const totalProdutos = cadastrarProduto(produtos, "  fIFA 25 ", "Esporte", 300, 4);
+console.log(`Produto cadastrado! Agora a loja tem ${totalProdutos} produtos.`);
+
+console.log("--- Tarefa 4: valor do estoque ---");
+console.log(`Valor do estoque: R$ ${calcularValorEstoque(produtos)}`);
+
+console.log("--- Tarefa 5: buscar ---");
+const achado = buscarProduto(produtos, "ELDEN RING");
+if (achado !== null) {
+  console.log(`Encontrado: ${achado.nome} - R$ ${achado.preco}`);
+}
+const naoAchado = buscarProduto(produtos, "Zelda");
+if (naoAchado === null) {
+  console.log("Produto não encontrado.");
+}
+
+console.log("--- Tarefa 6: em falta ---");
+const faltando = produtosEmFalta(produtos, 5);
+console.log(`Produtos com menos de 5 unidades: ${faltando.length}`);
+
+console.log("--- Tarefa 7: desconto ---");
+const qtdDesconto = aplicarDesconto(produtos, "Acao", 10);
+console.log(`${qtdDesconto} produtos receberam desconto.`);
+console.log(`Novo preço do Sekiro: R$ ${buscarProduto(produtos, "Sekiro").preco}`);
+
+console.log("--- Tarefa 8: registrar venda ---");
+if (registrarVenda(produtos, "Elden Ring", 3)) {
+  const r = buscarProduto(produtos, "Elden Ring");
+  console.log(`Venda realizada! ${r.nome}: ${r.quantidade} un. em estoque, ${r.vendidos} vendidos.`);
+}
+if (!registrarVenda(produtos, "Elden Ring", 100)) {
+  console.log("Venda não realizada: estoque insuficiente ou produto inexistente.");
+}
+
+console.log("--- Tarefa 9: formatar nome ---");
+console.log(formatarNome(" bORRACHA branca "));
+
+console.log("--- Tarefa 10: JSON ---");
+const texto = converterParaJSON(produtos);
+console.log(typeof texto);
+const recuperados = lerJSON(texto);
+console.log(`Itens recuperados: ${recuperados.length} | Primeiro: ${recuperados[0].nome}`);
+
+console.log("--- Tarefa 11: relatório ---");
+gerarRelatorio(nomeLoja, produtos);
