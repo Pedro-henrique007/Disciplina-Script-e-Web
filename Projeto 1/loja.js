@@ -107,9 +107,20 @@ function aplicarDesconto(lista,categoria,percentual){
 }
 
 //Tarefa 8
+function registrarVenda(lista, nome, quantidade) {
+  const produto = buscarProduto(lista, nome);
+  if (produto === null || produto.quantidade < quantidade) {
+    return false;
+  }
+  produto.quantidade = produto.quantidade - quantidade;
+  produto.vendidos = produto.vendidos + quantidade;
+  return true;
+}
+
+// Tarefa 9
+function formatarNome(texto) {
+  const limpo = texto.trim();
+  return limpo.charAt(0).toUpperCase() + limpo.slice(1).toLowerCase();
+}
 
 
-
-
-console.log();
-listarProdutos(produtos);
