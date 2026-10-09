@@ -1,52 +1,83 @@
 const nomeloja = "Game Station";
 
-const produtos = [6];
-
-produtos[0]={
+const produtos =[ {
     nome:"Grand Theft Auto VI",
     categoria:"Ação",
     preco:450,
     quantidade:100,
     vendidos:0
-}
-produtos[1]={
+},
+{
     nome:"Minecraft",
     categoria:"Sandbox",
     preco:120,
     quantidade:100,
     vendidos:0
-}
-produtos[2]={
+},
+{
     nome:"Elden Ring",
     categoria:"Souls Like",
     preco:250,
     quantidade:4,
     vendidos:0
-}
-produtos[3]={
+},
+{
     nome:"Terraria",
     categoria:"Mundo aberto",
     preco:20,
     quantidade:30,
     vendidos:0
-}
-produtos[4]={
-    nome:"Zelda",
-    categoria:"Aventura",
-    preco:130,
-    quantidade:2,
-    vendidos:0
-}
-produtos[5]={
+},
+{
     nome:"Sekiro",
     categoria:"Acao",
     preco:200,
     quantidade:45,
     vendidos:0
+},
+{
+    nome:"Mario",
+    categoria:"Acao",
+    preco:40,
+    quantidade:3,
+    vendidos:0
 }
-function listarProdutos(produtos){
-    for (let i=0;i<produtos.length;i++){
-        console.log(`1${produtos.nome[i]} | ${produtos.categoria[i]} | ${produtos.preco[i]} | ${produtos.quantidade[i]} | ${produtos.vendidos[i]}`)
+];
+
+
+function listarProdutos(lista){
+    for (let i=0;i<lista.length;i++){
+        
+        console.log(`${1+[i]}: ${lista[i].nome} | ${lista[i].categoria} | ${lista[i].preco} | ${lista[i].quantidade} | ${lista[i].vendidos}`)
         console.log("\n")
     }
 }
+function cadastrarProduto(lista,nome,categoria,preco,quantidade){
+   
+}
+
+
+function calcularValorEstoque(lista){
+    let soma=0;
+    for(let i=0;i<produtos.length;i++){
+        soma= soma+ (produtos.preco[i]*produto.quantidade[i])
+    }
+    return soma;
+    console.log(`O valor da soma dos produtos é ${soma}`);
+}
+
+function buscarProduto(lista,termo){
+    for(let k=0;k<lista.length;i++){
+        if(termo.toLowerCase()===lista.nome.toLowerCase()[i]){
+            return lista[i];
+        }
+        return null;
+    }
+}
+
+
+
+
+
+console.log();
+listarProdutos(produtos);
